@@ -12,7 +12,7 @@ def bag_contents(request):
     bag = request.session.get('bag', {})  # create an empty library if there are no items in the bag
 
     for item_id, item_data in bag.items():
-        if isinstance(item_data, int):
+        if isinstance(item_data, int):  # if the item data is only an integer, not a library
             product = get_object_or_404(Product, pk=item_id)
             total += item_data * product.price
             product_count += item_data
@@ -28,7 +28,7 @@ def bag_contents(request):
                 product_count += quantity
                 bag_items.append({
                     'item_id': item_id,
-                    'quantity': item_data,
+                    'quantity': quantity,
                     'product': product,
                     'size': size,
                 })
